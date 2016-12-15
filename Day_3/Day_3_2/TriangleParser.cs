@@ -8,16 +8,6 @@ namespace Day_3_2
 {
 	public class TriangleParser
 	{
-		private static int[] Take3(int startIndex, int[] haystack)
-		{
-			var sides = new List<int>();
-			for(int i = startIndex; i < haystack.Length && i < (startIndex + 3); i++)
-			{
-				sides.Add(haystack[i]);
-			}
-			return sides.ToArray();
-		}
-
 		public static List<Triangle> Parse(string line)
 		{
 			var triangles = new List<Triangle>();
