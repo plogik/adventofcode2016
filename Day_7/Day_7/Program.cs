@@ -16,7 +16,7 @@ namespace Day_7
 			int validSSLCount = 0;
 			foreach(var line in File.ReadAllLines("input.txt"))
 			{
-				var parser = new TLSParser(line);
+				var parser = new Parser(line);
 				if (parser.IsValidTLS())
 				{
 					validCount++;

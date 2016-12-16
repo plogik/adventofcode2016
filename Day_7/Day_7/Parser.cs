@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Day_7
 {
-	public class TLSParser
+	public class Parser
 	{
 		private string insideBrackets;
 		private string outsideBrackets;
 
-		public TLSParser(string input)
+		public Parser(string input)
 		{
 			Parse(input);
 		}
