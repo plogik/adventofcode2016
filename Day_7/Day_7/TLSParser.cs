@@ -47,41 +47,6 @@ namespace Day_7
 			outsideBrackets = outsideBuf.ToString();
 		}
 
-		private static string ParseOutsideBrackets(string input)
-		{
-			bool inside = false;
-			var buf = new StringBuilder();
-			foreach (var c in input)
-			{
-				if (c == '[')
-				{
-					inside = true;
-					continue;
-				}
-				if (c == ']')
-				{
-					inside = false;
-					continue;
-				}
-				if (!inside)
-				{
-					buf.Append(c);
-				}
-
-			}
-			return buf.ToString();
-		}
-
-		private static bool HasAnyValidFourCharSequence(List<string> seqs)
-		{
-			foreach(var seq in seqs)
-			{
-				if (HasValidFourCharSequence(seq))
-					return true;
-			}
-			return false;
-		}
-
 		private static bool HasValidFourCharSequence(string seq)
 		{
 			for(int i = 0; i < seq.Length - 3; i++)
@@ -93,5 +58,31 @@ namespace Day_7
 			}
 			return false;
 		}
+
+		public bool IsValidSSL()
+		{
+			bool valid = false;
+			for(int i = 0; i < outsideBrackets.Length - 2; i++)
+			{
+				if(outsideBrackets[i] == outsideBrackets[i + 2] &&
+					outsideBrackets[i] != outsideBrackets[i + 1])
+				{
+					var revChars = new string(new char[]
+					{
+						outsideBrackets[i + 1],
+						outsideBrackets[i],
+						outsideBrackets[i + 1]
+					});
+					if(insideBrackets.IndexOf(revChars) != -1)
+					{
+						return true;
+					}
+
+				}
+			}
+			return valid;
+		}
+
+		
 	}
 }

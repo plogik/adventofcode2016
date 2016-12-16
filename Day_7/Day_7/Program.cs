@@ -13,17 +13,22 @@ namespace Day_7
 		static void Main(string[] args)
 		{
 			int validCount = 0;
+			int validSSLCount = 0;
 			foreach(var line in File.ReadAllLines("input.txt"))
 			{
-				if(new TLSParser(line).IsValidTLS())
+				var parser = new TLSParser(line);
+				if (parser.IsValidTLS())
 				{
 					validCount++;
 				}
+				if(parser.IsValidSSL())
+				{
+					validSSLCount++;
+				}
+
 			}
-			Console.WriteLine("Valid count:" + validCount);
-			
-			/*var d7 = new Day7();
-			d7.Solve();*/
+			Console.WriteLine("Valid TLS count:" + validCount);
+			Console.WriteLine("Valid SSL count:" + validSSLCount);
 
 			Console.ReadLine();
 			

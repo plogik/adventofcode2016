@@ -15,7 +15,7 @@ namespace Day_7.Tests
 		{
 			var input = " abba[mnop]qrst";
 
-			var result = TLSParser.IsValidTLS(input);
+			var result = new TLSParser(input).IsValidTLS();
 
 			Assert.IsTrue(result);
 		}
@@ -25,7 +25,7 @@ namespace Day_7.Tests
 		{
 			var input = "abcd[bddb]xyyx";
 
-			var result = TLSParser.IsValidTLS(input);
+			var result = new TLSParser(input).IsValidTLS();
 
 			Assert.IsFalse(result);
 		}
@@ -35,7 +35,7 @@ namespace Day_7.Tests
 		{
 			var input = "aaaa[qwer]tyui";
 
-			var result = TLSParser.IsValidTLS(input);
+			var result = new TLSParser(input).IsValidTLS();
 
 			Assert.IsFalse(result);
 		}
@@ -43,9 +43,9 @@ namespace Day_7.Tests
 		[Test]
 		public void TLSParser_Scenario_4()
 		{
-			var input = "";
+			var input = "ioxxoj[asdfgh]zxcvbn";
 
-			var result = TLSParser.IsValidTLS(input);
+			var result = new TLSParser(input).IsValidTLS();
 
 			Assert.IsTrue(result);
 		}
