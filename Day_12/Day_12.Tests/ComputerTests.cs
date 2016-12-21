@@ -26,7 +26,7 @@ namespace Day_12.Tests
 			var comp = new Computer(ops);
 			comp.Run();
 
-			Assert.AreEqual(42, comp['a']);
+			Assert.AreEqual(42, comp["a"]);
 		}
 	}
 }
