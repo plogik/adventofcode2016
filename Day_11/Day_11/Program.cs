@@ -16,7 +16,7 @@ namespace Day_11
 			var p = new SearchEngine();
 			Stopwatch sw = new Stopwatch();
 			sw.Start();
-			var n = p.Run(new TestWorld());
+			var n = p.Run(new World());
 			sw.Stop();
 			Console.WriteLine("Found {0} steps away", n != null ? n.Distance : -1);
 			Console.WriteLine("Elapsed:" + sw.Elapsed);
