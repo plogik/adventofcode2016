@@ -55,9 +55,15 @@ namespace Day_11
 			if(currNode.Floor < 3)
 			{
 				var n = AboveBelow(currNode, true, 2);
-				if(n.Count > 0) nodes.AddRange(n);
-				n = AboveBelow(currNode, true, 1);
-				if(n.Count > 0) nodes.AddRange(n);
+				if (n.Count > 0)
+				{
+					nodes.AddRange(n);
+				}
+				else
+				{
+					n = AboveBelow(currNode, true, 1);
+					if (n.Count > 0) nodes.AddRange(n);
+				}
 			}
 			if(currNode.Floor > 0)
 			{
@@ -74,6 +80,7 @@ namespace Day_11
 			var found = new List<Node>();
 			if (moveCount == 2)
 			{
+
 				for (int i = 1; i <= 256/*Node.Item.RUG*/; i <<= 1)
 				{
 					for (int n = i << 1; n <= 512/*Node.Item.PLG*/; n <<= 1)
