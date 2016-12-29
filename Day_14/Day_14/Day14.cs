@@ -35,7 +35,7 @@ namespace Day_14
 			var hasher = MD5.Create();
 			int idx = 0;
 
-			while (found.Count < 64)
+			while (found.Count < 63)
 			{
 				var result = GetMd5Hash(hasher, String.Format("{0}{1}", salt, idx));
 
@@ -73,11 +73,10 @@ namespace Day_14
 					tmpCandidates.Remove(candidate);
 					found.Add(new Key() { Letter = candidate.Letter, Index = candidate.Index });
 
-					/*Console.WriteLine("Matched:" + candidate.Letter + ", seed at " + candidate.Index);
-					Console.WriteLine(candidate.Hash);
+					Console.WriteLine("Matched:" + candidate.Letter + ", seed at " + candidate.Index);
 					Console.WriteLine(input);
 					Console.WriteLine();
-					*/
+					
 					//break;
 				}
 			}
@@ -140,13 +139,18 @@ namespace Day_14
 		// https://msdn.microsoft.com/en-us/library/system.security.cryptography.md5(v=vs.110).aspx?cs-save-lang=1&cs-lang=csharp#code-snippet-2
 		static string GetMd5Hash(MD5 md5Hash, string input)
 		{
-			byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
-
 			StringBuilder sBuilder = new StringBuilder();
-
-			for (int i = 0; i < data.Length; i++)
+			for (int n = 0; n < 2017; n++)
 			{
-				sBuilder.Append(data[i].ToString("x2"));
+				byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+				sBuilder = new StringBuilder();
+
+				for (int i = 0; i < data.Length; i++)
+				{
+					sBuilder.Append(data[i].ToString("x2"));
+				}
+				input = sBuilder.ToString();
 			}
 			return sBuilder.ToString();
 		}
