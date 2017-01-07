@@ -39,26 +39,12 @@ namespace Day_23
 						if(idx < strOps.Length) // inside program bounds?
 						{
 							var strOp = strOps[idx];
-							var toToggle = strOp.Split(' ');
-							switch (toToggle[0])
-							{
-								case "cpy":
-									strOp = strOp.Replace("cpy", "jnz");
-									break;
-								case "inc":
-									strOp = strOp.Replace("inc", "dec");
-									break;
-								case "dec":
-									strOp = strOp.Replace("dec", "inc");
-									break;
-								case "jnz":
-									strOp = strOp.Replace("jnz", "cpy");
-									break;
-								case "tgl":
-									strOp = strOp.Replace("tgl", "inc");
-									break;
-							}
-							strOps[idx] = strOp;
+							var toToggle = strOp.Split(' ')[0];
+							var toggledOp = 
+								toToggle == "cpy" ? "jnz" :
+								toToggle == "jnz" ? "cpy" :
+								toToggle == "inc" ? "dec" : "inc";
+							strOps[idx] = toggledOp + strOps[idx].Substring(3);
 						}
 						break;
 					case "cpy":
