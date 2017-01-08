@@ -64,6 +64,25 @@ namespace Day_22
 			return false;
 		}
 
+		// This does what i did manually in interactive mode. Only works for
+		// grid where wall is above, hole is to the far left, there is no wall
+		// in the top two rows
+		public void RunOptimized()
+		{
+			while (MoveEmpty(Direction.Up)) // Up to wall
+				;
+			while (MoveEmpty(Direction.Left)) // Left to get through hole
+				;
+			while (MoveEmpty(Direction.Up)) // To top of grid
+				;
+			while (MoveEmpty(Direction.Right)) // To top right, moving the goal data one step to the left
+				;
+
+			// From here on, moving the goal one step to the left takes 5 steps
+			var goalNode = nodes.First(n => n.IsGoalNode);
+			Steps += goalNode.X * 5;
+		}
+
 
 		public override string ToString()
 		{
@@ -75,7 +94,6 @@ namespace Day_22
 
 			for (int row = 0; row <= rows; row++)
 			{
-				int i = 0;
 				foreach(var n in nodes.Where(n => n.Y == row))
 				{
 					buf.Append(n.IsLarge ? '#' : 

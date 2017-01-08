@@ -46,6 +46,12 @@ namespace Day_22
 			}
 		}
 
+		static void DoOptimized(PathFinder finder)
+		{
+			finder.RunOptimized();
+			Console.Write("Steps:" + finder.Steps);
+		}
+
 		static void Pt2(List<Node> nodes)
 		{
 			var finder = new PathFinder(nodes);
@@ -56,9 +62,10 @@ namespace Day_22
 				case 1:
 					DoInteractive(finder);
 					break;
-				/*case 2:
+				case 2:
+					DoOptimized(finder);
 					break;
-				case 3:
+				/*case 3:
 					break;
 				case 4:
 					break;*/
@@ -66,7 +73,7 @@ namespace Day_22
 					throw new NotImplementedException();
 			}
 
-			Console.WriteLine(finder);
+			//Console.WriteLine(finder);
 		}
 
 		static void Main(string[] args)
