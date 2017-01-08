@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Day_22
 {
-	public struct Node
+	public class Node
 	{
 		public string Filesystem;
 		public int Size;

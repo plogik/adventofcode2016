@@ -12,7 +12,7 @@ namespace Day_23
 	{
 		private Dictionary<string, long> registers = new Dictionary<string, long>()
 		{
-			{ "a", 7 },
+			{ "a", 12 }, // 7 for pt 1, 12 for pt 2
 			{ "b", 0 },
 			{ "c", 0 },
 			{ "d", 0 }

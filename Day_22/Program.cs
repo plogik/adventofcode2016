@@ -26,14 +26,68 @@ namespace Day_22
 			return numPairs;
 		}
 
+		static void Pt1(List<Node> nodes)
+		{
+			Console.WriteLine("# pairs:" + NumPairs(nodes));
+		}
+
+		static void DoInteractive(PathFinder finder)
+		{
+			while(true)
+			{
+				Console.Clear();
+				Console.Write(finder);
+				Console.Write("Steps:" + finder.Steps);
+				var key = Console.ReadKey().Key;
+				finder.MoveEmpty(key == ConsoleKey.UpArrow ? PathFinder.Direction.Up :
+					key == ConsoleKey.DownArrow ? PathFinder.Direction.Down :
+					key == ConsoleKey.LeftArrow ? PathFinder.Direction.Left :
+					PathFinder.Direction.Right);
+			}
+		}
+
+		static void Pt2(List<Node> nodes)
+		{
+			var finder = new PathFinder(nodes);
+
+			Console.Write("1 - Interactive, 2 - Optimized, 3 - BFS, 4 - A* [1,2,3,4]? ");
+			switch (int.Parse(Console.ReadLine()))
+			{
+				case 1:
+					DoInteractive(finder);
+					break;
+				/*case 2:
+					break;
+				case 3:
+					break;
+				case 4:
+					break;*/
+				default:
+					throw new NotImplementedException();
+			}
+
+			Console.WriteLine(finder);
+		}
+
 		static void Main(string[] args)
 		{
 			var nodes = new List<Node>();
-			foreach(var line in File.ReadLines("input.txt"))
+			foreach (var line in File.ReadLines("input.txt"))
 			{
 				nodes.Add(Node.From(line));
 			}
-			Console.WriteLine("# pairs:" + NumPairs(nodes));
+
+			Console.Write("Pt 1 or 2 [1,2]? ");
+			switch(int.Parse(Console.ReadLine()))
+			{
+				case 1:
+					Pt1(nodes);
+					break;
+				case 2:
+					Pt2(nodes);
+					break;
+			}
+
 			Console.ReadLine();
 		}
 	}
