@@ -11,51 +11,6 @@ namespace Day_24
 		private string[] rows;
 		private List<Pair> pairs = new List<Pair>();
 
-		private class Location
-		{
-			public int X, Y;
-			public int Number;
-			public int Distance = -1;
-			public Location Parent;
-
-			public override string ToString()
-			{
-				return String.Format("{0} at {{{1},{2}}}", Number, X, Y);
-			}
-
-			public override bool Equals(object obj)
-			{
-				return obj is Location &&
-					((Location)obj).X == X &&
-					((Location)obj).Y == Y;
-			}
-
-			public override int GetHashCode()
-			{
-				int result = 17;
-				result = 31 * result + X;
-				result = 31 * result + Y;
-				return result;
-			}
-		}
-
-		private class Pair
-		{
-			public Location From;
-			public Location To;
-
-			public Pair(Location from, Location to)
-			{
-				From = from;
-				To = to;
-			}
-
-			public override string ToString()
-			{
-				return string.Format("From {0} to {1}: {2} steps", From, To, To.Distance);
-			}
-		}
-
 		public MazeWalker(string[] rows)
 		{
 			this.rows = rows;
@@ -80,23 +35,13 @@ namespace Day_24
 			// Find distance between all numbers in the maze
 			foreach (var loc in locations)
 			{
-				Find(loc, locations.Count - 1);
+				FindPairs(loc, locations.Count - 1);
 			}
 
+			// Traverse all possible combinations of numbers in maze to find shortest path
+			// around all of them
 			return FindShortestPath(runPart2);
 		}
-
-		// http://stackoverflow.com/questions/756055/listing-all-permutations-of-a-string-integer
-		static IEnumerable<IEnumerable<T>>
-			GetPermutations<T>(IEnumerable<T> list, int length)
-		{
-			if (length == 1) return list.Select(t => new T[] { t });
-
-			return GetPermutations(list, length - 1)
-				.SelectMany(t => list.Where(e => !t.Contains(e)),
-					(t1, t2) => t1.Concat(new T[] { t2 }));
-		}
-
 
 		private int FindShortestPath(bool runPart2 = false)
 		{
@@ -132,7 +77,7 @@ namespace Day_24
 
 		// Breadth-First-Search
 		// Looks for numbers not equal to start
-		private void Find(Location start, int pairsToFind)
+		private void FindPairs(Location start, int pairsToFind)
 		{
 			var pairsFound = 0;
 			var visited = new List<Location>();
@@ -185,6 +130,61 @@ namespace Day_24
 			return locations;
 		}
 
-		//public 
+		// http://stackoverflow.com/questions/756055/listing-all-permutations-of-a-string-integer
+		static IEnumerable<IEnumerable<T>>
+			GetPermutations<T>(IEnumerable<T> list, int length)
+		{
+			if (length == 1) return list.Select(t => new T[] { t });
+
+			return GetPermutations(list, length - 1)
+				.SelectMany(t => list.Where(e => !t.Contains(e)),
+					(t1, t2) => t1.Concat(new T[] { t2 }));
+		}
+
+		private class Location
+		{
+			public int X, Y;
+			public int Number;
+			public int Distance = -1;
+			public Location Parent;
+
+			public override string ToString()
+			{
+				return String.Format("{0} at {{{1},{2}}}", Number, X, Y);
+			}
+
+			public override bool Equals(object obj)
+			{
+				return obj is Location &&
+					((Location)obj).X == X &&
+					((Location)obj).Y == Y;
+			}
+
+			public override int GetHashCode()
+			{
+				int result = 17;
+				result = 31 * result + X;
+				result = 31 * result + Y;
+				return result;
+			}
+		}
+
+		private class Pair
+		{
+			public Location From;
+			public Location To;
+
+			public Pair(Location from, Location to)
+			{
+				From = from;
+				To = to;
+			}
+
+			public override string ToString()
+			{
+				return string.Format("From {0} to {1}: {2} steps", From, To, To.Distance);
+			}
+		}
+
 	}
 }
