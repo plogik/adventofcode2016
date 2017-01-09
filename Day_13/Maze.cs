@@ -90,6 +90,7 @@ namespace Day_13
 						n.Distance = curr.Distance + 1;
 						q.Enqueue(n);
 
+						// Part 2
 						if (curr.Distance == 49)
 							maxVisited = maxVisited > visited.Count ? maxVisited : visited.Count;
 
