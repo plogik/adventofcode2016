@@ -21,7 +21,7 @@ move (x, y) S s = (x, y - s)
 move (x, y) E s = (x + s, y)
 
 parseInput :: String -> [(Turn, Steps)]
-parseInput s = map (\x -> (read [head x] :: Turn, read (tail x) :: Int)) $ 
+parseInput s = map (\(x:xs) -> (read [x] :: Turn, read xs :: Steps)) $ 
             map (takeWhile (/=',')) $ words s
 
 moveAll :: Direction -> Point -> [(Turn, Steps)] -> Point
