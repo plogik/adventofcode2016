@@ -28,9 +28,9 @@ parseInput s = map (\(x:xs) -> (read [x] :: Turn, read xs :: Steps)) $
 
 moveAll :: Direction -> Point -> [(Turn, Steps)] -> [Point] -> [Point]
 moveAll _ _ [] ps = ps -- no more steps
-moveAll d p (x:xs) ps = do
-    let nd = newDirection d (fst x)
-        nps = move p nd (snd x)
+moveAll d p ((x,y):xs) ps = do
+    let nd = newDirection d x
+        nps = move p nd y
     moveAll nd (last nps) xs (ps ++ nps)
 
 firstDup :: [Point] -> Maybe Point
@@ -42,6 +42,7 @@ firstDup (x:xs)
 distance :: Point -> Int
 distance = (\(x, y) -> (abs x) + (abs y))
 
+-- Assumes there is a duplicate
 main = do
     input <- readFile "input.txt"
     let maybeDup = firstDup $  moveAll N (0,0) (parseInput input) [(0, 0)]
