@@ -1,4 +1,4 @@
-import Data.Char
+import Data.Char -- for intToDigit
 
 move :: Int -> Char -> Int
 move curr d
@@ -40,7 +40,7 @@ getButton curr [] = curr
 getButton curr (x:xs) = getButton (move curr x) xs
 
 getCode :: [String] -> [Int]
-getCode xs = tail . scanl getButton 5 $ xs
+getCode xs = tail $ scanl getButton 5 xs
 
 
 main = do
